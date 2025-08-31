@@ -1,0 +1,81 @@
+{
+  "name": "sagar-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Professional portfolio website showcasing MERN stack development skills and projects",
+  "keywords": [
+    "portfolio",
+    "developer",
+    "MERN",
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Express",
+    "fullstack"
+  ],
+  "author": "Sagar Nepali",
+  "license": "MIT",
+  "homepage": "https://sagar-nepali.com.np",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/sagar-portfolio.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext js,jsx --fix",
+    "build:prod": "npm run build && npm run analyze",
+    "analyze": "npx vite-bundle-analyzer dist",
+    "deploy": "./deploy.sh",
+    "deploy:build": "./deploy.sh --build",
+    "deploy:test": "./deploy.sh --test",
+    "deploy:force": "./deploy.sh --force",
+    "clean": "rm -rf dist node_modules/.vite",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"No tests specified\" && exit 0",
+    "test:watch": "echo \"No tests specified\" && exit 0",
+    "start": "npm run preview"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "framer-motion": "^10.16.4",
+    "lucide-react": "^0.263.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "terser": "^5.43.1",
+    "vite": "^4.4.5",
+    "vite-bundle-analyzer": "^0.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependenciesMeta": {
+    "vite-bundle-analyzer": {
+      "optional": true
+    }
+  }
+}

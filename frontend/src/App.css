@@ -1,0 +1,580 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* === CSS Custom Properties === */
+:root {
+  /* Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: rgba(24, 24, 24, 0.95);
+  --bg-tertiary: rgba(32, 32, 32, 0.8);
+  --text-primary: #ffffff;
+  --text-secondary: #e5e7eb;
+  --text-muted: #9ca3af;
+  --text-accent: #60a5fa;
+  --accent-color: #60a5fa;
+  --icon-color: #60a5fa;
+  
+  /* Borders */
+  --border-primary: rgba(55, 65, 81, 0.5);
+  --border-secondary: rgba(75, 85, 99, 0.4);
+  --border-accent: rgba(96, 165, 250, 0.6);
+  --border-hover: rgba(96, 165, 250, 0.8);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.3);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Transitions - Optimized for performance */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-index */
+  --z-background: 0;
+  --z-content: 10;
+  --z-navigation: 20;
+  --z-sidebar: 15;
+  --z-overlay: 30;
+}
+
+/* === Reset & Base === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Enhanced smooth scrolling */
+  scroll-padding-top: 0;
+  scroll-padding-bottom: 0;
+}
+
+/* Smooth scrolling for all scrollable elements */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Optimize scrolling performance */
+.content-scroll-area {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-snap-type: y proximity;
+}
+
+/* Smooth scrolling for sidebar */
+.sidebar {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Performance optimizations */
+  text-rendering: optimizeSpeed;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  position: relative;
+}
+
+/* === Background Video === */
+.video-background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-background);
+  overflow: hidden;
+}
+
+.video-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.8) 0%,
+    rgba(10, 10, 10, 0.6) 50%,
+    rgba(10, 10, 10, 0.8) 100%
+  );
+}
+
+/* === App Container === */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  box-sizing: border-box;
+  position: relative;
+  z-index: var(--z-content);
+  overflow: visible;
+}
+
+/* === Sidebar === */
+.sidebar {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text-primary);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-xl);
+  min-width: 200px;
+  max-width: 240px;
+  height: calc(100vh - 2 * var(--spacing-lg));
+  position: sticky;
+  top: var(--spacing-lg);
+  flex-shrink: 0;
+  z-index: var(--z-sidebar);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.sidebar:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+/* === Main Content === */
+.main-content {
+  flex: 1;
+  background: var(--bg-secondary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-xl);
+  padding: var(--spacing-xl);
+  height: calc(100vh - 2 * var(--spacing-lg));
+  position: relative;
+  z-index: var(--z-content);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Performance optimizations */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.main-content:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+/* === Main Header === */
+.main-header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.portfolio-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+  margin: 0;
+  position: relative;
+}
+
+.portfolio-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--text-accent), transparent);
+  border-radius: 2px;
+}
+
+/* === Content Scroll Area === */
+.content-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-secondary) var(--bg-secondary);
+  padding-right: var(--spacing-xs);
+  /* Enhanced smooth scrolling and performance */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-snap-type: y proximity;
+  height: 100%;
+  /* Performance optimizations */
+  will-change: scroll-position;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.content-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-scroll-area::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+}
+
+.content-scroll-area::-webkit-scrollbar-thumb {
+  background: var(--border-accent);
+  border-radius: var(--radius-sm);
+}
+
+.content-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* === Loading Screen === */
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.loading-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--border-primary);
+  border-top: 4px solid var(--text-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === Responsive Design === */
+@media (max-width: 1200px) {
+  .app-container {
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+  
+  .sidebar {
+    min-width: 180px;
+    max-width: 220px;
+    padding: var(--spacing-sm);
+  }
+  
+  .main-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .portfolio-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-container {
+    flex-direction: column;
+    gap: 0;
+    padding: var(--spacing-md);
+  }
+  
+  .sidebar {
+    min-width: 100%;
+    max-width: 100%;
+    position: static;
+    order: 1;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .main-content {
+    order: 2;
+    min-height: auto;
+    height: auto;
+  }
+  
+  .portfolio-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: var(--spacing-sm);
+    gap: 0;
+    height: auto;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    padding: var(--spacing-md);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-primary);
+  }
+  
+  .main-content {
+    padding: var(--spacing-md);
+    height: auto;
+    min-height: auto;
+    margin-bottom: 80px; /* Space for bottom navigation */
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-primary);
+  }
+  
+  .portfolio-title {
+    font-size: 2rem;
+  }
+  
+  .portfolio-title::after {
+    width: 80px;
+    height: 3px;
+  }
+  
+  /* When sidebar is hidden on mobile (non-About pages), adjust main content */
+  .app-container:not(:has(.sidebar)) .main-content {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 80px; /* Space for bottom navigation */
+    border-radius: var(--radius-xl);
+  }
+  
+  /* Ensure content doesn't get hidden behind bottom navigation */
+  .content-scroll-area {
+    padding-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: var(--spacing-xs);
+    gap: 0;
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    padding: var(--spacing-sm);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-primary);
+  }
+  
+  .main-content {
+    padding: var(--spacing-sm);
+    margin-bottom: 70px; /* Reduced space for smaller navigation */
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-primary);
+  }
+  
+  .portfolio-title {
+    font-size: 1.75rem;
+  }
+  
+  .portfolio-title::after {
+    width: 60px;
+    height: 2px;
+  }
+  
+  /* When sidebar is hidden on mobile (non-About pages), adjust main content */
+  .app-container:not(:has(.sidebar)) .main-content {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 70px; /* Space for bottom navigation */
+    border-radius: var(--radius-xl);
+  }
+  
+  /* Ensure content doesn't get hidden behind bottom navigation */
+  .content-scroll-area {
+    padding-bottom: 15px;
+  }
+}
+
+/* === Scrollbar Styling === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-accent);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* === Focus States === */
+*:focus {
+  outline: 2px solid var(--text-accent);
+  outline-offset: 2px;
+}
+
+/* === Selection Styling === */
+::selection {
+  background: var(--text-accent);
+  color: var(--bg-primary);
+}
+
+::-moz-selection {
+  background: var(--text-accent);
+  color: var(--bg-primary);
+}
+
+/* === High Contrast Mode === */
+@media (prefers-contrast: high) {
+  :root {
+    --border-primary: rgba(255, 255, 255, 0.8);
+    --border-accent: rgba(255, 255, 255, 1);
+  }
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+  
+  /* Disable smooth scrolling for users who prefer reduced motion */
+  .content-scroll-area {
+    scroll-behavior: auto;
+  }
+}
+
+/* === Performance Optimizations === */
+/* Optimize all page content for smooth scrolling */
+.about-container,
+.experience-container,
+.skills-container,
+.projects-container,
+.contact-container {
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  /* Smooth scrolling optimization */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Optimize images for better performance */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  will-change: auto;
+}
+
+/* Optimize text rendering */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  text-rendering: optimizeSpeed;
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+}
+
+/* Smooth scrolling for all scrollable containers */
+.scrollable {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-snap-type: y proximity;
+}
+
+/* Performance optimization for animations */
+@media (prefers-reduced-motion: no-preference) {
+  .content-scroll-area {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-snap-type: y proximity;
+  }
+}
+
+

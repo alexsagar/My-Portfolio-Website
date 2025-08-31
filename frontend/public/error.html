@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Sagar Nepali Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .error-container {
+            text-align: center;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        
+        .error-message {
+            font-size: 1.1rem;
+            color: rgba(156, 163, 175, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(96, 165, 250, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(96, 165, 250, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .error-details {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: rgba(156, 163, 175, 0.8);
+            text-align: left;
+        }
+        
+        .error-details h4 {
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+        
+        .error-details p {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 2rem 1rem;
+            }
+            
+            .error-code {
+                font-size: 6rem;
+            }
+            
+            .error-title {
+                font-size: 1.5rem;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .error-title {
+                font-size: 1.25rem;
+            }
+            
+            .error-message {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code" id="errorCode">404</div>
+        <h1 class="error-title" id="errorTitle">Page Not Found</h1>
+        <p class="error-message" id="errorMessage">
+            The page you're looking for doesn't exist or has been moved. 
+            Let's get you back on track to exploring my portfolio.
+        </p>
+        
+        <div class="error-actions">
+            <a href="/" class="btn btn-primary">Go Home</a>
+            <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
+        </div>
+        
+        <div class="error-details">
+            <h4>Error Details:</h4>
+            <p><strong>Error Code:</strong> <span id="errorCodeDetail">404</span></p>
+            <p><strong>Page:</strong> <span id="errorPage"></span></p>
+            <p><strong>Time:</strong> <span id="errorTime"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Get error details from URL or default to 404
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorCode = urlParams.get('code') || '404';
+        const errorPage = urlParams.get('page') || window.location.pathname;
+        
+        // Update error display
+        document.getElementById('errorCode').textContent = errorCode;
+        document.getElementById('errorCodeDetail').textContent = errorCode;
+        document.getElementById('errorPage').textContent = errorPage;
+        document.getElementById('errorTime').textContent = new Date().toLocaleString();
+        
+        // Update title and message based on error code
+        const errorMessages = {
+            '400': {
+                title: 'Bad Request',
+                message: 'The request could not be understood by the server. Please check your input and try again.'
+            },
+            '401': {
+                title: 'Unauthorized',
+                message: 'You need to be authenticated to access this resource. Please log in and try again.'
+            },
+            '403': {
+                title: 'Forbidden',
+                message: 'You don\'t have permission to access this resource. Please contact the administrator if you believe this is an error.'
+            },
+            '404': {
+                title: 'Page Not Found',
+                message: 'The page you\'re looking for doesn\'t exist or has been moved. Let\'s get you back on track to exploring my portfolio.'
+            },
+            '500': {
+                title: 'Internal Server Error',
+                message: 'Something went wrong on our end. We\'re working to fix this issue. Please try again later.'
+            },
+            '502': {
+                title: 'Bad Gateway',
+                message: 'The server received an invalid response from an upstream server. Please try again later.'
+            },
+            '503': {
+                title: 'Service Unavailable',
+                message: 'The service is temporarily unavailable. We\'re working to restore it. Please try again later.'
+            },
+            '504': {
+                title: 'Gateway Timeout',
+                message: 'The server didn\'t receive a timely response from an upstream server. Please try again later.'
+            }
+        };
+        
+        const errorInfo = errorMessages[errorCode] || errorMessages['404'];
+        document.getElementById('errorTitle').textContent = errorInfo.title;
+        document.getElementById('errorMessage').textContent = errorInfo.message;
+        
+        // Add some animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.error-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.6s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
+        });
+        
+        // Track error for analytics (optional)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'error_page', {
+                'error_code': errorCode,
+                'error_page': errorPage
+            });
+        }
+    </script>
+</body>
+</html>
