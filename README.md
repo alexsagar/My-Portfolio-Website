@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website built with React.js and Vite, showcasing professional projects, skills, and experience. Features smooth animations, mobile-first design, and optimal performance for both development and production environments.
 
-![Portfolio Preview](https://res.cloudinary.com/dtuqbqgz7/image/upload/v1756630452/Screenshot_2025-08-31_143843_ybjyax.png)
+![Portfolio Preview]([https://res.cloudinary.com/dtuqbqgz7/image/upload/v1756630452/Screenshot_2025-08-31_143843_ybjyax.png](https://res.cloudinary.com/dtuqbqgz7/image/upload/v1756641230/Screenshot_2025-08-31_173757_qqwzvc.png))
 
 ## ✨ Features
 
